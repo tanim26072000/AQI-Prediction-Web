@@ -1,7 +1,7 @@
 import streamlit as st
 import tensorflow as tf
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageOps
 import plotly.graph_objects as go
 from lime import lime_image
 from skimage.segmentation import mark_boundaries
@@ -113,15 +113,19 @@ with center:
 # uploader + inference
 uploaded = st.file_uploader("", type=["jpg", "jpeg"])
 if uploaded:
-    image = Image.open(uploaded)
+    raw = Image.open(uploaded)
+    image = ImageOps.exif_transpose(raw)
+
+    # 2) Prepare prediction
     arr = np.array(image)
     prep = preprocess_image(arr)
     pred = float(model.predict(tf.expand_dims(prep, 0))[0][0])
 
+    # 3) Compute display dimensions
     disp_w = 800
-    # compute the display height so the aspect ratio is preserved
     disp_h = int(image.height * disp_w / image.width)
 
+    # 4) Layout: image and AQI side by side
     col_img, col_txt = st.columns([1, 1])
     with col_img:
         st.image(image, caption="Uploaded Image", width=disp_w)
