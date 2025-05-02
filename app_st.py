@@ -111,7 +111,7 @@ with center:
 # )
 
 # uploader + inference
-uploaded = st.file_uploader("", type=["jpg", "jpeg"])
+uploaded = st.file_uploader("", type=["jpg", "jpeg", "JPG", "JPEG"])
 if uploaded:
     raw = Image.open(uploaded)
     image = ImageOps.exif_transpose(raw)
