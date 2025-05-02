@@ -1,0 +1,8 @@
+streamlit
+tensorflow
+numpy
+pillow
+plotly
+lime
+scikit-image
+matplotlib
