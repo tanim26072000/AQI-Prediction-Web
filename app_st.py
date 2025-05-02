@@ -111,7 +111,7 @@ with center:
 # )
 
 # uploader + inference
-uploaded = st.file_uploader("", type=["jpg", "jpeg"])
+uploaded = st.file_uploader("Choose an image…")
 if uploaded:
     image = Image.open(uploaded)
     arr = np.array(image)
